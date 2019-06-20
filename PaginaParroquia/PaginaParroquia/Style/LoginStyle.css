@@ -7,6 +7,12 @@
     background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+footer {
+    margin: 0;
+    padding: 0;
+    top: 100px;
+}
+
 h2 {
     margin: 0;
     padding: 0 0 20px;

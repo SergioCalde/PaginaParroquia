@@ -40,7 +40,7 @@ namespace PaginaParroquia.Controllers
                 {
                     Session["UsuarioID"] = SQL.idUsuario;
                     Session["usuario"] = SQL.usuario;
-                    return RedirectToAction("Index", "ClienteVIP");
+                    return RedirectToAction("Index", "Home");
                 }
             }
         }

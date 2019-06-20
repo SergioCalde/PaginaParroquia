@@ -12,12 +12,18 @@ html {
 body {
   margin: 0;
 }
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 article,
 aside,
 details,
 figcaption,
 figure,
-footer,
 header,
 hgroup,
 main,
@@ -3951,6 +3957,16 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   font-size: 0;
   white-space: nowrap;
 }
+
+.collapse ul li a {
+    color: #ffffff;
+}
+.navbar-default .navbar-brand {
+    color: #000;
+}
+
+
+
 .input-group-btn > .btn {
   position: relative;
 }
@@ -3985,17 +4001,19 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   display: block;
   padding: 10px 15px;
 }
-.nav > li > a:hover,
-.nav > li > a:focus {
-  text-decoration: none;
-  background-color: #eee;
-}
+    .nav > li > a:hover,
+    .nav > li > a:focus {
+        text-decoration: none;
+        background-color: #394b69;
+    }
+
 .nav > li.disabled > a {
-  color: #777;
+    color: #fff;
+    
 }
 .nav > li.disabled > a:hover,
 .nav > li.disabled > a:focus {
-  color: #777;
+  color: #fff;
   text-decoration: none;
   cursor: not-allowed;
   background-color: transparent;
@@ -4093,12 +4111,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li + li {
   margin-left: 2px;
 }
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #337ab7;
-}
+    .nav-pills > li.active > a,
+    .nav-pills > li.active > a:hover,
+    .nav-pills > li.active > a:focus {
+        color: #fff;
+        background-color: #867979;
+        /*#337ab7*/
+    }
 .nav-stacked > li {
   float: none;
 }
@@ -4274,7 +4293,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand {
   float: left;
   height: 50px;
-  padding: 15px 15px;
+  padding: 3px 15px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -4321,7 +4340,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-nav {
-  margin: 7.5px -15px;
+  margin: 9px -10px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
