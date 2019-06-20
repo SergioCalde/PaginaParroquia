@@ -1,0 +1,93 @@
+﻿body {
+    /*MANEJO DE IMAGEN DE FONDO*/
+    margin: 0;
+    padding: 0;
+    background: #00C9FF; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+h2 {
+    margin: 0;
+    padding: 0 0 20px;
+    color: white;
+    text-align: center;
+}
+
+h4 {
+    margin: 0;
+    padding: 0 0 20px;
+    color: white;
+    text-align: center;
+}
+
+.AreaLogin {
+    /*tamaño contenedor*/
+    width: 550px;
+    height: 480px;
+    /*Área a usar*/
+    padding: 50px 40px;
+    top: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    transform: translate(50px, 50px);
+    box-sizing: border-box;
+    background: #00C9FF;
+}
+
+    /*TEXTBOX Y BOTON*/
+
+    .AreaLogin input {
+        width: 100%; /*ANCHO TOTAL DEL TEXTBOX SOBRE EL CONTENEDOR*/
+        margin-bottom: 100px; /*Margen*/
+    }
+
+        .AreaLogin input[type="text"],
+        .AreaLogin input[type="password"] {
+            border: none;
+            border-bottom: 1px solid white;
+            /*FONDO CAJA DE TEXTO*/
+            background: transparent;
+            /*BORDES DE LAS CAJAS*/
+            outline: none;
+            height: 30px;
+            color: white;
+            font-size: 18px;
+        }
+
+        /*FORMATO Y COMPORTAMIENTO DEL BOTÓN*/
+        .AreaLogin input[type="submit"] {
+            color: black;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            background-color: #E5E5BE;
+            cursor: pointer;
+            height: 40px;
+            border-radius: 25px;
+            position: absolute;
+            top: 460px;
+            left: 150px;
+            width: 270px;
+        }
+
+            /*EFECTO AL PASAR EL MOUSE*/
+
+            .AreaLogin input[type="submit"]:hover {
+                background-color: #003973;
+                color: white; /*CAMBIO DE COLOR DE FUENTE*/
+            }
+
+.imgLogo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; /*FORMA DEL BORDE DE LA IMAGEN*/
+    position: absolute;
+    top: calc(-250px/2);
+    /*left: 35% /*A partir de la izq.... 50% (CENTRO)*/
+    left: calc(100% - 380px);
+}
