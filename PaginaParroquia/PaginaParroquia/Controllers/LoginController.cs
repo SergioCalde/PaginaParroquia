@@ -20,22 +20,23 @@ namespace PaginaParroquia.Controllers
         [HttpPost]
         public ActionResult Autorizar(Usuario objUsuario)
         {
-            //Lectura de la DBS
+            //SCalderon: Lectura de la DBS
             using (UsuarioModel DBS = new UsuarioModel())
             {
-
+                //SCalderon: CREA UNA VARIABLE Y ENCRIPTA LO QUE EL CLIENTE NOS ENVIA PARA PODER VALIDARLO CON DB
                 var pass = Encrypt(objUsuario.password);
+                //VALIDO REGISTROS
                 var SQL = DBS.Usuarios.Where(x => x.usuario == objUsuario.usuario &&
                                          x.password == pass).FirstOrDefault();
 
-                //VALIDO REGISTROS
+                
 
                 if (SQL == null)
                 {
                     objUsuario.PpMensaje = "Datos incorrectos, Por favor revisar!";
                     return View("Index", objUsuario);
                 }
-                // SI ES VALIDO EL USUARIO AUTORIZO ACCESSO A VIP
+                //SCalderon: SI ES VALIDO EL USUARIO AUTORIZO ACCESSO A LA PLATAFORMA
                 else
                 {
                     Session["UsuarioID"] = SQL.idUsuario;
@@ -48,7 +49,7 @@ namespace PaginaParroquia.Controllers
 
         public ActionResult LogOutUser()
         {
-            //FINALIZAMOS SESIÓN...
+            //SCalderon: FINALIZAMOS SESIÓN...
 
             Session.Abandon();
             return RedirectToAction("Index", "Login");
@@ -56,11 +57,13 @@ namespace PaginaParroquia.Controllers
 
 
         protected static string Encrypt(string Password) {
-
+            //SCalderon: Se crea un SHA256
             using (SHA256 sha256Hash = SHA256.Create())
             {
+                //SCalderon: Toma el string password que recibe como parametro y crea un array de tipo byte
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(Password));
 
+                //SCalderon: Se transforma ese byte array a string
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {

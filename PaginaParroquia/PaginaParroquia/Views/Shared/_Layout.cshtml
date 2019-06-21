@@ -8,8 +8,6 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @*<nav class="navbar navbar-dark bg-primary">*@
-    @*<nav class="navbar navbar-light bg-primary navbar-fixed-top">*@
     <nav class="navbar navbar-light navbar-fixed-top" style="background-color: #007bff; color: #fff" >
         <div class="container">
             <div class="navbar-header">
@@ -24,18 +22,15 @@
                     <img src="~/Img/Logo.png" width="50" height="50" alt="">
                 </a>
 
-
-                @*@Html.ActionLink("Parroquia La Santa Cruz", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-left">
                     <li style="color: #fff">@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @*Logout button*@
                 </ul>
 
+                @*Logout button*@
                 <ul class="nav navbar-nav navbar-right ">
                     <li><a href="@Url.Action("LogOutUser", "Login")" role="button" aria-pressed="true" position="left">Cerrar Sesión</a></li>
                 </ul>
