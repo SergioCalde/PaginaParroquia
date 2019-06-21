@@ -19,6 +19,12 @@ footer {
     justify-content: center;
 }
 
+dropdown-menu {
+    background-color: #007bff;
+    
+}
+
+
 article,
 aside,
 details,
@@ -31,7 +37,7 @@ menu,
 nav,
 section,
 summary {
-  display: block;
+    display: block;
 }
 audio,
 canvas,
