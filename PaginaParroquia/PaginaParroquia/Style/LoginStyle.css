@@ -2,9 +2,12 @@
     /*MANEJO DE IMAGEN DE FONDO*/
     margin: 0;
     padding: 0;
-    background: #00C9FF; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: cover;
+    /*background: #00C9FF; /* fallback for old browsers */
+    /*background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF); /* Chrome 10-25, Safari 5.1-6 */
+    /*background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-image: url('../Img/p3.jpg');
+    background-repeat: no-repeat;
 }
 
 footer {
@@ -42,7 +45,7 @@ h4 {
     transform: translateY(-50%);
     transform: translate(50px, 50px);
     box-sizing: border-box;
-    background: #00C9FF;
+    background: rgb(0,123,255, .7);
 }
 
     /*TEXTBOX Y BOTON*/

@@ -19,12 +19,6 @@ footer {
     justify-content: center;
 }
 
-dropdown-menu {
-    background-color: #007bff;
-    
-}
-
-
 article,
 aside,
 details,
@@ -3965,7 +3959,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 
 .collapse ul li a {
-    color: #ffffff;
+    font-weight: bold;
+    color: darkgray;
 }
 .navbar-default .navbar-brand {
     color: #000;

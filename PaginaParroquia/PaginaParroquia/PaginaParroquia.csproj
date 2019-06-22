@@ -146,7 +146,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\add-contact.png" />
+    <Content Include="Img\BautismoLogo.png" />
     <Content Include="Img\Logo.png" />
+    <Content Include="Img\LogoComunion.png" />
+    <Content Include="Img\LogoConfirmación.png" />
+    <Content Include="Img\LogoMatrimonio.png" />
+    <Content Include="Img\magnifier.png" />
+    <Content Include="Img\p3.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
