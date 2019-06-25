@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 
-    if (Session["UsuarioID"] == null)
+    if (Session["idUsuario"] == null)
     {
         Response.Redirect("~/Login/Index");
     }

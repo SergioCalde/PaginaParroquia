@@ -6,11 +6,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace PaginaParroquia.Controllers
 {
+
     public class LoginController : Controller
     {
+
         // GET: Login
         public ActionResult Index()
         {
@@ -18,18 +21,17 @@ namespace PaginaParroquia.Controllers
         }
 
         [HttpPost]
-        public ActionResult Autorizar(Usuario objUsuario)
+        
+        public ActionResult Autorizar (Usuario objUsuario)
         {
             //SCalderon: Lectura de la DBS
-            using (UsuarioModel DBS = new UsuarioModel())
+            using (Model1 DBS = new Model1())
             {
                 //SCalderon: CREA UNA VARIABLE Y ENCRIPTA LO QUE EL CLIENTE NOS ENVIA PARA PODER VALIDARLO CON DB
                 var pass = Encrypt(objUsuario.password);
                 //VALIDO REGISTROS
                 var SQL = DBS.Usuarios.Where(x => x.usuario == objUsuario.usuario &&
                                          x.password == pass).FirstOrDefault();
-
-                
 
                 if (SQL == null)
                 {
@@ -39,19 +41,21 @@ namespace PaginaParroquia.Controllers
                 //SCalderon: SI ES VALIDO EL USUARIO AUTORIZO ACCESSO A LA PLATAFORMA
                 else
                 {
-                    Session["UsuarioID"] = SQL.idUsuario;
+                    Session["idUsuario"] = SQL.idUsuario;
                     Session["usuario"] = SQL.usuario;
+                    FormsAuthentication.SetAuthCookie(SQL.usuario.Trim(), false);
+                    //Roles.AddUsersToRole(SQL.usuario.Trim, "Admin");
                     return RedirectToAction("Index", "Home");
                 }
             }
         }
-
 
         public ActionResult LogOutUser()
         {
             //SCalderon: FINALIZAMOS SESIÓN...
 
             Session.Abandon();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Login");
         }
 
