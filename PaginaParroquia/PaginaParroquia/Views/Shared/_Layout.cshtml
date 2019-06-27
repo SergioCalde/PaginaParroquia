@@ -38,7 +38,8 @@
                         <div class="dropdown-menu" style="background-color: #007bff;">
                             @if (User.IsInRole("Admin"))
                             {
-                                <a class="dropdown-item" href="@Url.Action("Create", "Usuarios")" role="button" aria-pressed="true" position="left">Crear Usuario</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Usuarios")" role="button" aria-pressed="true" position="left">Usuarios</a>
+                                <div class="dropdown-divider" style="color:white; border-color:white; color"></div>
                                 <div class="dropdown-divider"></div>
                             }
                             <a class="dropdown-item" href="@Url.Action("LogOutUser", "Login")" role="button" aria-pressed="true" position="left">Cerrar Sesión</a>

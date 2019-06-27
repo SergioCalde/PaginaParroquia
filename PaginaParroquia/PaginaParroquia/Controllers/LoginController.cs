@@ -64,16 +64,25 @@ namespace PaginaParroquia.Controllers
             //SCalderon: Se crea un SHA256
             using (SHA256 sha256Hash = SHA256.Create())
             {
-                //SCalderon: Toma el string password que recibe como parametro y crea un array de tipo byte
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(Password));
-
-                //SCalderon: Se transforma ese byte array a string
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
+                try
                 {
-                    builder.Append(bytes[i].ToString("x2"));
+                    //SCalderon: Toma el string password que recibe como parametro y crea un array de tipo byte
+                    byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(Password));
+
+                    //SCalderon: Se transforma ese byte array a string
+                    StringBuilder builder = new StringBuilder();
+                    for (int i = 0; i < bytes.Length; i++)
+                    {
+                        builder.Append(bytes[i].ToString("x2"));
+                    }
+
+                    return builder.ToString();
                 }
-                return builder.ToString();
+                catch (Exception)
+                {
+                    return "Falta la contraseña";
+                }
+                
             }
                 
         }

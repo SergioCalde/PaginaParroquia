@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using PaginaParroquia.Models;
@@ -15,6 +17,7 @@ namespace PaginaParroquia.Controllers
         private Model1 db = new Model1();
 
         // GET: Usuarios
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var usuarios = db.Usuarios.Include(u => u.Role);
@@ -22,6 +25,7 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Usuarios/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -72,6 +76,7 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Usuarios/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,7 +88,7 @@ namespace PaginaParroquia.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.rol = new SelectList(db.Roles, "idRol", "rol", usuario.rol);
+            
             return View(usuario);
         }
 
@@ -92,19 +97,23 @@ namespace PaginaParroquia.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idUsuario,usuario,password,rol,PpMensaje")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "idUsuario, usuario, password, rol")] Usuario usuario2)
         {
+            LoginController lc = new LoginController();
+
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+
+                usuario2.password = lc.Encrypt(usuario2.password);
+                db.Entry(usuario2).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.rol = new SelectList(db.Roles, "idRol", "rol", usuario.rol);
-            return View(usuario);
+            return View(usuario2);
         }
 
         // GET: Usuarios/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -138,5 +147,6 @@ namespace PaginaParroquia.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
