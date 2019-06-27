@@ -14,19 +14,19 @@ namespace PaginaParroquia.Models
 
         [Column("usuario")]
         [Required]
-        [StringLength(25)]
+        [MaxLength(25)]
         [DisplayName("Usuario")]
         public string usuario { get; set; }
 
         [Required]
-        [StringLength(2500)]
+        [MaxLength(2500)]
         [DisplayName("Password")]
         public string password { get; set; }
 
         [DisplayName("Rol")]
         public int rol { get; set; }
 
-        [StringLength(10)]
+        [MaxLength(100)]
         public string PpMensaje { get; set; }
 
         public virtual Role Role { get; set; }

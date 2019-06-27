@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -16,20 +15,20 @@ namespace PaginaParroquia.Controllers
         private Model1 db = new Model1();
 
         // GET: Usuarios
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var usuarios = db.Usuarios.Include(u => u.Role);
-            return View(await usuarios.ToListAsync());
+            return View(usuarios.ToList());
         }
 
         // GET: Usuarios/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = await db.Usuarios.FindAsync(id);
+            Usuario usuario = db.Usuarios.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -41,8 +40,6 @@ namespace PaginaParroquia.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            ViewBag.rol = new SelectList(db.Roles, "idRol", "rol");
-            var user = new Usuario();
             return View();
         }
 
@@ -51,27 +48,37 @@ namespace PaginaParroquia.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "idUsuario,usuario,password,rol,PpMensaje")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "usuario,password")] Usuario usuario2)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Usuarios.Add(usuario);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
 
-            ViewBag.rol = new SelectList(db.Roles, "idRol", "rol", usuario.rol);
-            return View(usuario);
+                LoginController lc = new LoginController();
+
+                if (ModelState.IsValid)
+                {
+
+                    usuario2.password = lc.Encrypt(usuario2.password);
+                    usuario2.rol = 2;
+                    db.Usuarios.Add(usuario2);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception) {
+
+            }
+            return View(usuario2);
         }
 
         // GET: Usuarios/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = await db.Usuarios.FindAsync(id);
+            Usuario usuario = db.Usuarios.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -85,12 +92,12 @@ namespace PaginaParroquia.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idUsuario,usuario,password,rol,PpMensaje")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "idUsuario,usuario,password,rol,PpMensaje")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(usuario).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.rol = new SelectList(db.Roles, "idRol", "rol", usuario.rol);
@@ -98,13 +105,13 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Usuarios/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = await db.Usuarios.FindAsync(id);
+            Usuario usuario = db.Usuarios.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -115,11 +122,11 @@ namespace PaginaParroquia.Controllers
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = await db.Usuarios.FindAsync(id);
+            Usuario usuario = db.Usuarios.Find(id);
             db.Usuarios.Remove(usuario);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

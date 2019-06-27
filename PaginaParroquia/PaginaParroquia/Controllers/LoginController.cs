@@ -60,7 +60,7 @@ namespace PaginaParroquia.Controllers
         }
 
 
-        protected static string Encrypt(string Password) {
+        public string Encrypt(string Password) {
             //SCalderon: Se crea un SHA256
             using (SHA256 sha256Hash = SHA256.Create())
             {
