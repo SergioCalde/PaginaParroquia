@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using PaginaParroquia.Models;
+using PagedList;
 
 namespace PaginaParroquia.Controllers
 {
@@ -18,10 +19,43 @@ namespace PaginaParroquia.Controllers
 
         // GET: Usuarios
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var usuarios = db.Usuarios.Include(u => u.Role);
-            return View(usuarios.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "usuarioDesc" : "";
+
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var usuarios = from u in db.Usuarios
+                            select u;
+
+            if (!String.IsNullOrEmpty(searchString)) {
+                usuarios = usuarios.Where(u => u.usuario.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "usuarioDesc":
+                    usuarios = usuarios.OrderByDescending(s => s.usuario);
+                    break;
+                default:
+                    usuarios = usuarios.OrderBy(s => s.usuario);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(usuarios.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Usuarios/Details/5

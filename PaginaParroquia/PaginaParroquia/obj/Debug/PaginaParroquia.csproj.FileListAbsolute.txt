@@ -424,4 +424,7 @@ E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\obj\Debug\PaginaPa
 E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\obj\Debug\PaginaParroquia.csproj.CopyComplete
 E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\obj\Debug\PaginaParroquia.dll
 E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\obj\Debug\PaginaParroquia.pdb
-E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\obj\Debug\PaginaParroquia.csprojAssemblyReference.cache
+E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\bin\PagedList.dll
+E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\bin\PagedList.Mvc.dll
+E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\bin\PagedList.xml
+E:\DocumentsE\Progra\TCU\Repo\PaginaParroquia\PaginaParroquia\bin\PagedList.Mvc.xml
