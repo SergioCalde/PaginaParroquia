@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using PaginaParroquia.Models;
 
 namespace PaginaParroquia.Controllers
@@ -16,9 +17,86 @@ namespace PaginaParroquia.Controllers
 
         // GET: Personas
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, string BuscarPor)
         {
-            return View(db.Personas.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.Apellido1SortParm = sortOrder == "Apellido" ? "apellido_desc": "Apellido" ;
+            ViewBag.Apellido2SortParm = sortOrder == "Apellido2" ? "apellido2_desc" : "Apellido2";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.NacionalidadSortParm = sortOrder == "Nacionalidad" ? "nacionalidad_desc" : "Nacionalidad";
+
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+
+            ViewBag.CurrentFilter = searchString;
+
+            var persona = from p in db.Personas
+                          select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (BuscarPor == "Nombre")
+                {
+                    persona = persona.Where(p => p.Nombre.Contains(searchString));
+                }
+                else if (BuscarPor == "Apellido")
+                {
+                    persona = persona.Where(p => p.Apellido.Contains(searchString));
+                }else if (BuscarPor == "Fecha_Nacimiento")
+                {
+                    DateTime fecha = DateTime.Parse(searchString);
+                    persona = persona.Where(p => p.Fecha_Nacimiento.Day.Equals(fecha.Day) && p.Fecha_Nacimiento.Month.Equals(fecha.Month)
+                    && p.Fecha_Nacimiento.Year.Equals(fecha.Year));
+                }
+            }
+
+            switch(sortOrder)
+            {
+                case "name_desc":
+                    persona = persona.OrderByDescending(p => p.Nombre);
+                    break;
+                case "Apellido":
+                    persona = persona.OrderBy(p => p.Apellido);
+                    break;
+                case "apellido_desc":
+                    persona = persona.OrderByDescending(p => p.Apellido);
+                    break;
+                case "Apellido2":
+                    persona = persona.OrderBy(p => p.Apellido2);
+                    break;
+                case "apellido2_desc":
+                    persona = persona.OrderByDescending(p => p.Apellido2);
+                    break;
+                case "Date":
+                    persona = persona.OrderBy(p => p.Fecha_Nacimiento);
+                    break;
+                case "date_desc":
+                    persona = persona.OrderByDescending(p => p.Fecha_Nacimiento);
+                    break;
+                case "Nacionalidad":
+                    persona = persona.OrderBy(p => p.Nacionalidad);
+                    break;
+                case "nacionalidad_desc":
+                    persona = persona.OrderByDescending(p => p.Nacionalidad);
+                    break;
+                default:
+                    persona = persona.OrderBy(p => p.Nombre);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(persona.ToPagedList(pageNumber,pageSize));
         }
 
         // GET: Personas/Details/5
