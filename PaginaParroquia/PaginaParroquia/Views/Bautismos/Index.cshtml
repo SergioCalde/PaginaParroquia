@@ -1,0 +1,127 @@
+﻿@model IEnumerable<PaginaParroquia.Models.Bautismo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Persona.Cedula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Parroquia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Bautismo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Presbitero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Parroco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Barrio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Distrito)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Canton)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Provincia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Padrinos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Declarante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ced_Declarante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Libro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Folio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Asiento)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Persona.Cedula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Parroquia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha_Bautismo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Presbitero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Parroco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Barrio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Distrito)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Canton)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provincia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Padrinos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Declarante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ced_Declarante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Libro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Folio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asiento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.IDBautismo }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IDBautismo }) |
+
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDBautismo })
+            }
+            else
+            {
+                <h9>Delete</h9>
+            }
+
+        </td>
+    </tr>
+}
+
+</table>

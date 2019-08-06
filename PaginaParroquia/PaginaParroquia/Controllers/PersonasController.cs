@@ -172,7 +172,7 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Personas/Delete/5
-        [Authorize]
+        [Authorize (Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -1,0 +1,145 @@
+﻿@model PaginaParroquia.Models.Bautismo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Bautismo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Persona.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persona.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parroquia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parroquia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Bautismo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Bautismo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Presbitero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Presbitero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parroco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parroco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Barrio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Barrio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Distrito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distrito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Canton)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Canton)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Provincia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provincia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Padrinos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Padrinos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Declarante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Declarante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ced_Declarante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ced_Declarante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Libro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Libro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Folio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Folio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asiento)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
