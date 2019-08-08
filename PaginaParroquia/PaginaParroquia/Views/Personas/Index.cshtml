@@ -15,7 +15,7 @@
     <p>
         Buscar por: @Html.DropDownList("BuscarPor",
 new SelectList(Enum.GetValues(typeof(BuscarPor))),"----Buscar Por----", new { @id = "selectTipo", @class = "form-control"})
-        <br> @Html.TextBox("searchString",ViewBag.currentFilter as String, new { @id = "txtBuscar", @class = "form-control" }) <br />
+        <br> @Html.TextBox("searchString", ViewBag.currentFilter as String, new { @id = "txtBuscar", @class = "form-control" }) <br />
         <input type="submit" value="Buscar" id="btnBuscar" class="btn-primary" /> @*Genera el boton de buscar*@
     </p>
 
@@ -23,7 +23,7 @@ new SelectList(Enum.GetValues(typeof(BuscarPor))),"----Buscar Por----", new { @i
 
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nueva Persona", "Create")
 </p>
 <table class="table">
     <tr>
@@ -120,6 +120,12 @@ new SelectList(Enum.GetValues(typeof(BuscarPor))),"----Buscar Por----", new { @i
 
 </table>
 
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 @section Scripts {
 
@@ -137,15 +143,15 @@ new SelectList(Enum.GetValues(typeof(BuscarPor))),"----Buscar Por----", new { @i
             else if ($("#selectTipo").val() === "Fecha_Nacimiento") {
 
                 $("#txtBuscar").show();
-                $("#txtBuscar").prop('disables',true);
-                
-                    $("#txtBuscar").datepicker({
-                        dateFormat: "mm/dd/yy",
-                        changeMonth: true,
-                        changeYear: true,
-                        yearRange: "-60:+0"
-                    });
-                
+                $("#txtBuscar").prop('disables', true);
+
+                $("#txtBuscar").datepicker({
+                    dateFormat: "mm/dd/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
 
                 $("#btnBuscar").show();
             }

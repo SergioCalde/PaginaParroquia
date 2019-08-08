@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PaginaParroquia.Models;
+using PagedList;
 
 namespace PaginaParroquia.Controllers
 {
@@ -19,9 +20,69 @@ namespace PaginaParroquia.Controllers
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, string BuscarPor)
         {
             ViewBag.CurrentSort = sortOrder;
+            ViewBag.fechaSortParm = String.IsNullOrEmpty(sortOrder) ? "fecha_desc" : "";
+            ViewBag.parroquiaSortParm = sortOrder == "Parroquia" ? "parroquia_desc" : "parroquia";
+            ViewBag.libroSortParm = sortOrder == "Libro" ? "libro_desc" : "libro";
 
-            var bautismoes = db.Bautismoes.Include(b => b.Persona);
-            return View(bautismoes.ToList());
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            var bautismo = from b in db.Bautismoes
+                          select b;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (BuscarPor == "Fecha_Bautismo")
+                {
+                    DateTime fecha = DateTime.Parse(searchString);
+                     bautismo = bautismo.Where(b => b.Fecha_Bautismo.Day.Equals(fecha.Day) && b.Fecha_Bautismo.Month.Equals(fecha.Month)
+                    && b.Fecha_Bautismo.Year.Equals(fecha.Year));
+                }
+                else if (BuscarPor == "Parroquia")
+                {
+                    bautismo = bautismo.Where(b => b.Parroquia.Contains(searchString));
+                }
+                else if (BuscarPor == "Libro")
+                {
+                    bautismo = bautismo.Where(b => b.Libro.Equals(searchString));
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "fecha_desc":
+                    bautismo = bautismo.OrderByDescending(b => b.Fecha_Bautismo);
+                    break;
+                case "parroquia":
+                    bautismo = bautismo.OrderBy(b => b.Parroquia);
+                    break;
+                case "parroquia_desc":
+                    bautismo = bautismo.OrderByDescending(b => b.Parroquia);
+                    break;
+                case "libro":
+                    bautismo = bautismo.OrderBy(b => b.Libro);
+                    break;
+                case "libro_desc":
+                    bautismo = bautismo.OrderByDescending(b => b.Libro);
+                    break;         
+                default:
+                    bautismo = bautismo.OrderBy(b => b.Fecha_Bautismo);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            //var bautismoes = db.Bautismoes.Include(b => b.Persona);
+
+            return View(bautismo.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Bautismos/Details/

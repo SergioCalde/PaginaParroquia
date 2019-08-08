@@ -1,127 +1,202 @@
-﻿@model IEnumerable<PaginaParroquia.Models.Bautismo>
+﻿@model PagedList.IPagedList<PaginaParroquia.Models.Bautismo>
+@using PagedList.Mvc;
+@using PaginaParroquia.Models
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Bautismos</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        Buscar por: @Html.DropDownList("BuscarPor",
+new SelectList(Enum.GetValues(typeof(BuscarPorB))),"----Buscar Por----", new { @id = "selectTipo", @class = "form-control"})
+        <br> @Html.TextBox("searchString", ViewBag.currentFilter as String, new { @id = "txtBuscar", @class = "form-control" }) <br />
+        <input type="submit" value="Buscar" id="btnBuscar" class="btn-primary" /> @*Genera el boton de buscar*@
+    </p>
+
+}
+
+    <p>
+        @Html.ActionLink("Crear Nuevo Bautismo", "Create")
+    </p>
+
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Persona.Cedula)
+            Persona
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Parroquia)
+            @Html.ActionLink("Parroquia", "Index", new { sortOrder = ViewBag.parroquiaSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Fecha_Bautismo)
+            @Html.ActionLink("Fecha Bautismo", "Index", new { sortOrder = ViewBag.fechaSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Presbitero)
+            Presbítero
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Parroco)
+            Párroco
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Barrio)
+            Barrio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Distrito)
+            Distrito
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Canton)
+            Canton
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Provincia)
+            Provincia
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Padrinos)
+            Padrinos
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Declarante)
+            Declarante
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ced_Declarante)
+            Cédula Declarante
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Libro)
+            @Html.ActionLink("Libro", "Index", new { sortOrder = ViewBag.libroSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Folio)
+            Folio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Asiento)
+            Asiento
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Persona.Cedula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Parroquia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha_Bautismo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Presbitero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Parroco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Barrio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Distrito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Canton)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Provincia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Padrinos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Declarante)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ced_Declarante)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Libro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Folio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Asiento)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IDBautismo }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IDBautismo }) |
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persona.Cedula) @Html.DisplayFor(modelItem => item.Persona.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parroquia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha_Bautismo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presbitero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parroco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Barrio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distrito)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Canton)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Provincia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Padrinos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Declarante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ced_Declarante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Libro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Folio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asiento)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IDBautismo }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IDBautismo }) |
 
-            @if (User.IsInRole("Admin"))
-            {
-                @Html.ActionLink("Delete", "Delete", new { id = item.IDBautismo })
-            }
-            else
-            {
-                <h9>Delete</h9>
-            }
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IDBautismo })
+                }
+                else
+                {
+                    <h9>Delete</h9>
+                }
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+        //Encargado de ocultar el Textbox y el boton si el dropdownlist esta en el parametro predefinido
+        $(document).ready(function () {
+            $("#txtBuscar").attr('autocomplete', 'off');
+            if ($("#selectTipo").val() === "") {
+                $("#txtBuscar").hide();
+                $("#btnBuscar").hide();
+            }
+            else if ($("#selectTipo").val() === "Fecha_Bautismo") {
+
+                $("#txtBuscar").show();
+                $("#txtBuscar").prop('disables', true);
+
+                $("#txtBuscar").datepicker({
+                    dateFormat: "mm/dd/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+
+                $("#btnBuscar").show();
+            }
+            else {
+                $("#txtBuscar").show();
+                $("#btnBuscar").show();
+                $("#txtBuscar").prop('disables', false);
+            }
+
+
+            $("#selectTipo").change(function () {
+
+                $("#txtBuscar").val("");
+                $("#btnBuscar").click();
+
+            });
+
+        });
+    </script>
+
+}
