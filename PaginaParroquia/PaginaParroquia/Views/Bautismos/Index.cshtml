@@ -128,16 +128,23 @@ new SelectList(Enum.GetValues(typeof(BuscarPorB))),"----Buscar Por----", new { @
                 @Html.DisplayFor(modelItem => item.Asiento)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IDBautismo }) |
-                @Html.ActionLink("Details", "Details", new { id = item.IDBautismo }) |
-
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.IDBautismo })
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IDBautismo })
                 }
                 else
                 {
-                    <h9>Delete</h9>
+                    <h9>Editar</h9>
+                }|
+                @Html.ActionLink("Detalles", "Details", new { id = item.IDBautismo }) |
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IDBautismo })
+                }
+                else
+                {
+                    <h9>Eliminar</h9>
                 }
 
             </td>
