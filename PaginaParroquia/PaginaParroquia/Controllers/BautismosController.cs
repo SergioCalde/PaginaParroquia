@@ -139,7 +139,7 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Bautismos/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)

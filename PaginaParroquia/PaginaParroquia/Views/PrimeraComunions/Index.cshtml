@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PaginaParroquia.Models.PrimeraComunion>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Bautismo.Parroquia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Persona.Cedula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lugar_Comunion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Libro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Folio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Asiento)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bautismo.Parroquia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Persona.Cedula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lugar_Comunion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Libro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Folio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Asiento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDPrimeraComunion }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDPrimeraComunion }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDPrimeraComunion })
+        </td>
+    </tr>
+}
+
+</table>

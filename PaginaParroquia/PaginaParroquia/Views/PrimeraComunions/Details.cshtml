@@ -1,0 +1,75 @@
+﻿@model PaginaParroquia.Models.PrimeraComunion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PrimeraComunion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Bautismo.Parroquia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bautismo.Parroquia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Persona.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persona.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lugar_Comunion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lugar_Comunion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Libro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Libro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Folio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Folio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asiento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDPrimeraComunion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -507,6 +507,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\PrimeraComunionsController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -647,6 +648,11 @@
     <Content Include="Views\Bautismos\Details.cshtml" />
     <Content Include="Views\Bautismos\Edit.cshtml" />
     <Content Include="Views\Bautismos\Index.cshtml" />
+    <Content Include="Views\PrimeraComunions\Create.cshtml" />
+    <Content Include="Views\PrimeraComunions\Delete.cshtml" />
+    <Content Include="Views\PrimeraComunions\Details.cshtml" />
+    <Content Include="Views\PrimeraComunions\Edit.cshtml" />
+    <Content Include="Views\PrimeraComunions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

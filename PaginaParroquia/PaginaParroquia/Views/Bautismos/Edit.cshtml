@@ -18,10 +18,9 @@
         @Html.HiddenFor(model => model.IDBautismo)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IDPersona, "IDPersona", htmlAttributes: new { @class = "control-label col-md-2" })
+            
             <div class="col-md-10">
-                @Html.DropDownList("IDPersona", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDPersona, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IDPersona)
             </div>
         </div>
 
@@ -32,15 +31,9 @@
                 @Html.ValidationMessageFor(model => model.Parroquia, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fecha_Bautismo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha_Bautismo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fecha_Bautismo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+        @*SCalderon: HiddenFor para que no pueda ser modificado, pero que el valor se mantenga *@
+                @Html.HiddenFor(model => model.Fecha_Bautismo)
+            
         <div class="form-group">
             @Html.LabelFor(model => model.Presbitero, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
