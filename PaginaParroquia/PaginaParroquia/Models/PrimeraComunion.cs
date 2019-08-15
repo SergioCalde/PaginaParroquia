@@ -32,4 +32,12 @@ namespace PaginaParroquia.Models
 
         public virtual Persona Persona { get; set; }
     }
+
+    public enum BuscarPorP
+    {
+        //Persona,
+        Fecha,
+        Libro
+    }
+
 }

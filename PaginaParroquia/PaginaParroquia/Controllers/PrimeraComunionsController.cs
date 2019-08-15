@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PaginaParroquia.Models;
+using PagedList;
 
 namespace PaginaParroquia.Controllers
 {
@@ -18,8 +19,68 @@ namespace PaginaParroquia.Controllers
         [Authorize]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, string BuscarPor)
         {
-            var primeraComunions = db.PrimeraComunions.Include(p => p.Bautismo).Include(p => p.Persona);
-            return View(primeraComunions.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.fechaSortParm = String.IsNullOrEmpty(sortOrder) ? "fecha_desc" : "";
+            //ViewBag.fechaSortParm = sortOrder == "Fecha" ? "fecha_desc" : "fecha";
+            ViewBag.libroSortParm = sortOrder == "Libro" ? "libro_desc" : "libro";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+            var comunion = from c in db.PrimeraComunions
+                          select c;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (BuscarPor == "Fecha")
+                {
+                    DateTime fecha = DateTime.Parse(searchString);
+                    comunion = comunion.Where(c => c.Fecha.Day.Equals(fecha.Day) && c.Fecha.Month.Equals(fecha.Month)
+                   && c.Fecha.Year.Equals(fecha.Year));
+                }
+                //else if (BuscarPor == "Parroquia")
+                //{
+                //    comunion = comunion.Where(c => c.IDPersona.ToString().Contains(searchString));
+                //}
+                else if (BuscarPor == "Libro")
+                {
+                    comunion = comunion.Where(b => b.Libro.Equals(searchString));
+                }
+            }
+
+            switch (sortOrder)
+            {
+
+                case "fecha":
+                    comunion = comunion.OrderBy(c => c.Fecha);
+                    break;
+                case "libro":
+                    comunion = comunion.OrderBy(c => c.Libro);
+                    break;
+                case "libro_desc":
+                    comunion = comunion.OrderByDescending(c => c.Libro);
+                    break;
+                default:
+                    comunion = comunion.OrderByDescending(c => c.Fecha);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+
+            //var primeraComunions = db.PrimeraComunions.Include(p => p.Bautismo).Include(p => p.Persona);
+
+
+            return View(comunion.ToPagedList(pageNumber, pageSize));
+
         }
 
         // GET: PrimeraComunions/Details/5
@@ -40,10 +101,12 @@ namespace PaginaParroquia.Controllers
 
         // GET: PrimeraComunions/Create
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(string person)
         {
-            ViewBag.IDBautismo = new SelectList(db.Bautismoes, "IDBautismo", "Parroquia");
             ViewBag.IDPersona = new SelectList(db.Personas, "IDPersona", "Cedula");
+            person = ViewBag.person;
+            ViewBag.IDBautismo = new SelectList(db.Bautismoes, "IDBautismo", "IDPersona");
+            
             return View();
         }
 
@@ -54,8 +117,13 @@ namespace PaginaParroquia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDPrimeraComunion,IDPersona,IDBautismo,Lugar_Comunion,Fecha,Libro,Folio,Asiento")] PrimeraComunion primeraComunion)
         {
+
+            //Insertar aquí el bautismo, con respecto a la persona. 
             if (ModelState.IsValid)
-            {
+            {                    
+                var bautismo = (from b in db.Bautismoes where b.IDPersona.Equals(primeraComunion.IDPersona) select b.IDBautismo).FirstOrDefault();
+                int IdBautismo = bautismo;
+                primeraComunion.IDBautismo = IdBautismo;
                 db.PrimeraComunions.Add(primeraComunion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
