@@ -504,6 +504,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BautismosController.cs" />
+    <Compile Include="Controllers\ConfirmasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
@@ -653,6 +654,11 @@
     <Content Include="Views\PrimeraComunions\Details.cshtml" />
     <Content Include="Views\PrimeraComunions\Edit.cshtml" />
     <Content Include="Views\PrimeraComunions\Index.cshtml" />
+    <Content Include="Views\Confirmas\Create.cshtml" />
+    <Content Include="Views\Confirmas\Delete.cshtml" />
+    <Content Include="Views\Confirmas\Details.cshtml" />
+    <Content Include="Views\Confirmas\Edit.cshtml" />
+    <Content Include="Views\Confirmas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
