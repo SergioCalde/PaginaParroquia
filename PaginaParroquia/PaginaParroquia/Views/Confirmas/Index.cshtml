@@ -1,4 +1,7 @@
-﻿@model IEnumerable<PaginaParroquia.Models.Confirma>
+﻿@model PagedList.IPagedList<PaginaParroquia.Models.Confirma>
+@using PagedList.Mvc;
+@using PaginaParroquia.Models
+
 
 @{
     ViewBag.Title = "Index";
@@ -7,82 +10,160 @@
 
 <h2>Confirma</h2>
 
+@using (Html.BeginForm())
+{
+    <p>
+        Buscar por: @Html.DropDownList("BuscarPor",
+new SelectList(Enum.GetValues(typeof(BuscarPorC))),"----Buscar Por----", new { @id = "selectTipo", @class = "form-control"})
+        <br> @Html.TextBox("searchString", ViewBag.currentFilter as String, new { @id = "txtBuscar", @class = "form-control" }) <br />
+        <input type="submit" value="Buscar" id="btnBuscar" class="btn-primary" /> @*Genera el boton de buscar*@
+    </p>
+}
+
+
+
 <p>
     @Html.ActionLink("Crear Nuevo Registro", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Bautismo.Parroquia)
+            Bautismo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Persona.Cedula)
+            Persona
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RelacionFamiliar.Relacion)
+            RelacionFamiliar
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Padrino)
+            Padrino
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Obispo)
+            Obispo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Lugar_Confirma)
+            Lugar_Confirma
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Fecha)
+            @Html.ActionLink("Fecha", "Index", new { sortOrder = ViewBag.fechaSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Libro)
+            @Html.ActionLink("Libro", "Index", new { sortOrder = ViewBag.libroSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Folio)
+            Folio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Asiento)
+            Asiento
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bautismo.Parroquia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Persona.Cedula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RelacionFamiliar.Relacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Padrino)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Obispo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lugar_Confirma)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Libro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Folio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Asiento)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDConfirma }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDConfirma }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDConfirma })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bautismo.Parroquia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persona.Cedula) @Html.DisplayFor(modelItem => item.Persona.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RelacionFamiliar.Relacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Padrino)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Obispo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lugar_Confirma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Libro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Folio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asiento)
+            </td>
+            <td>
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IDConfirma })
+                }
+                else
+                { <h9>Editar</h9>}|
+                @Html.ActionLink("Details", "Details", new { id = item.IDConfirma }) |
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IDConfirma })
+                }
+                else
+                { <h9>Eliminar</h9>}
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+        //Encargado de ocultar el Textbox y el boton si el dropdownlist esta en el parametro predefinido
+        $(document).ready(function () {
+            $("#txtBuscar").attr('autocomplete', 'off');
+            if ($("#selectTipo").val() === "") {
+                $("#txtBuscar").hide();
+                $("#btnBuscar").hide();
+            }
+            else if ($("#selectTipo").val() === "Fecha") {
+
+                $("#txtBuscar").show();
+                $("#txtBuscar").prop('disables', true);
+
+                $("#txtBuscar").datepicker({
+                    dateFormat: "mm/dd/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+
+                $("#btnBuscar").show();
+            }
+            else {
+                $("#txtBuscar").show();
+                $("#btnBuscar").show();
+                $("#txtBuscar").prop('disables', false);
+            }
+
+
+            $("#selectTipo").change(function () {
+
+                $("#txtBuscar").val("");
+                $("#btnBuscar").click();
+
+            });
+
+        });
+    </script>
+
+}

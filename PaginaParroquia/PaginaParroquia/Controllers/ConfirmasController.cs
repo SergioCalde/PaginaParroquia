@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PaginaParroquia.Models;
+using PagedList;
 
 namespace PaginaParroquia.Controllers
 {
@@ -19,31 +20,61 @@ namespace PaginaParroquia.Controllers
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, string BuscarPor)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.fechaSortParm = sortOrder == "fecha" ? "fecha_desc" : "fecha";
+            ViewBag.fechaSortParm = String.IsNullOrEmpty(sortOrder) ? "fecha_desc" : "";
+            ViewBag.libroSortParm = sortOrder == "libro" ? "libro_desc" : "libro";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+
             var confirma = from c in db.Confirmas
                            select c;
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (BuscarPor == "Fecha")
+                {
+                    DateTime fecha = DateTime.Parse(searchString);
+                    confirma = confirma.Where(c => c.Fecha.Day.Equals(fecha.Day) && c.Fecha.Month.Equals(fecha.Month)
+                   && c.Fecha.Year.Equals(fecha.Year));
+                }
+                else if (BuscarPor == "Libro")
+                {
+                    confirma = confirma.Where(b => b.Libro.Equals(searchString));
+                }
+            }
+
+
             switch (sortOrder)
             {
-                case "name_desc":
-                    confirma = confirma.OrderByDescending(c => c.Persona);
-                    break;
-                case "fecha":
-                    confirma = confirma.OrderBy(c => c.Fecha);
-                    break;
                 case "fecha_desc":
                     confirma = confirma.OrderByDescending(c => c.Fecha);
                     break;
+                case "libro":
+                    confirma = confirma.OrderBy(c => c.Fecha);
+                    break;
+                case "libro_desc":
+                    confirma = confirma.OrderByDescending(c => c.Fecha);
+                    break;
                 default:
-                    confirma = confirma.OrderBy(c => c.Persona);
+                    confirma = confirma.OrderBy(c => c.Fecha);
                     break;
 
             }
 
 
-           var confirmas = db.Confirmas.Include(c => c.Bautismo).Include(c => c.Persona).Include(c => c.RelacionFamiliar);
-            return View(confirmas.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            //var confirmas = db.Confirmas.Include(c => c.Bautismo).Include(c => c.Persona).Include(c => c.RelacionFamiliar);
+            return View(confirma.ToPagedList(pageNumber, pageSize));
         }
         [Authorize]
         // GET: Confirmas/Details/5
