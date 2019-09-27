@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PaginaParroquia.Models;
 using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace PaginaParroquia.Controllers
 {
@@ -97,8 +98,12 @@ namespace PaginaParroquia.Controllers
         {
             ViewBag.IDBautismo = new SelectList(db.Bautismoes, "IDBautismo", "Parroquia");
             ViewBag.IDPersona = new SelectList(db.Personas, "IDPersona", "Cedula");
+           
+
+
             ViewBag.IDRelacion = new SelectList(db.RelacionFamiliars, "IDRelacion", "Relacion");
             return View();
+
         }
 
         // POST: Confirmas/Create
@@ -110,16 +115,25 @@ namespace PaginaParroquia.Controllers
         {
             if (ModelState.IsValid)
             {
+
+
+
+                //Where(s => s.IDPersona.Equals(confirma.IDPersona)).Select(s => s.IDBautismo)
+                var IDBautismo = db.Bautismoes.First(b => b.IDPersona.Equals(confirma.IDPersona)).IDBautismo;
+                confirma.IDBautismo = IDBautismo;
+                RelacionFamiliar rel = new RelacionFamiliar();
+                rel =  db.RelacionFamiliars.Where(s => s.IDPersona1 == confirma.IDPersona).Select(s => s).FirstOrDefault();
+                confirma.RelacionFamiliar = rel;
                 db.Confirmas.Add(confirma);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDBautismo = new SelectList(db.Bautismoes, "IDBautismo", "Parroquia", confirma.IDBautismo);
             ViewBag.IDPersona = new SelectList(db.Personas, "IDPersona", "Cedula", confirma.IDPersona);
             ViewBag.IDRelacion = new SelectList(db.RelacionFamiliars, "IDRelacion", "Relacion", confirma.IDRelacion);
             return View(confirma);
         }
+
         [Authorize(Roles = "Admin")]
         // GET: Confirmas/Edit/5
         public ActionResult Edit(int? id)

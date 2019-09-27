@@ -16,8 +16,8 @@ namespace PaginaParroquia.Models
             Confirmas = new HashSet<Confirma>();
             Matrimonios = new HashSet<Matrimonio>();
             Matrimonios1 = new HashSet<Matrimonio>();
-            RelacionFamiliars = new HashSet<RelacionFamiliar>();
-            RelacionFamiliars1 = new HashSet<RelacionFamiliar>();
+            //RelacionFamiliars = new HashSet<RelacionFamiliar>();
+            //RelacionFamiliars1 = new HashSet<RelacionFamiliar>();
             PrimeraComunions = new HashSet<PrimeraComunion>();
         }
 
@@ -74,11 +74,13 @@ namespace PaginaParroquia.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matrimonio> Matrimonios1 { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RelacionFamiliar> RelacionFamiliars { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RelacionFamiliar> RelacionFamiliars1 { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<RelacionFamiliar> RelacionFamiliars { get; set; }
+
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<RelacionFamiliar> RelacionFamiliars1 { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PrimeraComunion> PrimeraComunions { get; set; }

@@ -213,17 +213,17 @@ namespace PaginaParroquia.Models
                 .HasForeignKey(e => e.IDEsposo)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Persona>()
-                .HasMany(e => e.RelacionFamiliars)
-                .WithRequired(e => e.Persona)
-                .HasForeignKey(e => e.IDPersona1)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Persona>()
+            //    .HasMany(e => e.RelacionFamiliars)
+            //    .WithRequired(e => e.Persona)
+            //    .HasForeignKey(e => e.IDPersona1)
+            //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Persona>()
-                .HasMany(e => e.RelacionFamiliars1)
-                .WithRequired(e => e.Persona1)
-                .HasForeignKey(e => e.IDPersona2)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Persona>()
+            //    .HasMany(e => e.RelacionFamiliars1)
+            //    .WithRequired(e => e.Persona1)
+            //    .HasForeignKey(e => e.IDPersona2)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Persona>()
                 .HasMany(e => e.PrimeraComunions)
@@ -238,10 +238,10 @@ namespace PaginaParroquia.Models
                 .Property(e => e.Relacion)
                 .IsFixedLength();
 
-            modelBuilder.Entity<RelacionFamiliar>()
-                .HasMany(e => e.Confirmas)
-                .WithRequired(e => e.RelacionFamiliar)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<RelacionFamiliar>()
+            //    .HasMany(e => e.Confirmas)
+            //    .WithRequired(e => e.RelacionFamiliar)
+            //    .WillCascadeOnDelete(false);
         }
     }
 }

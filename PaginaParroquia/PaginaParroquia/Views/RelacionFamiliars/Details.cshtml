@@ -1,0 +1,43 @@
+﻿@model PaginaParroquia.Models.RelacionFamiliar
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RelacionFamiliar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Persona.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persona.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Persona1.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Persona1.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Relacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Relacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDRelacion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

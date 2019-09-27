@@ -7,37 +7,43 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Confirma</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.IDPersona, "IDPersona", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IDPersona, "Cédula Persona ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IDPersona", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("IDPersona", null,"Seleccionar Opcion", htmlAttributes: new { @id = "selectPersona", @class = "form-control" })               
                 @Html.ValidationMessageFor(model => model.IDPersona, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IDRelacion, "IDRelacion", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IDRelacion, "Encargado ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IDRelacion", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDRelacion, "", new { @class = "text-danger" })
+
+
+                <select id="ddlRelacionFamiliar" class="form-control">
+                    <option value="0">Seleccionar Opcion</option>
+                </select>
+
+                @*@Html.DropDownList(null,null, htmlAttributes: new { @class = "form-control" })*@
+                @*@Html.ValidationMessageFor(model => model.IDRelacion, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDBautismo, "IDBautismo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDBautismo", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDBautismo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.IDBautismo, "IDBautismo", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IDBautismo", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IDBautismo, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Padrino, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -66,7 +72,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @id = "fecha", @class = "form-control", @readonly = "true"} })
                 @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -106,3 +112,87 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    <script>
+
+
+    $(document).ready(function () {
+
+
+        var urlConsultarRelaciones = '@Url.Action("ConsultarRelaciones","RelacionFamiliars")';
+
+        $("#selectPersona").change(function () {
+
+                
+                $("#ddlRelacionFamiliar").empty();
+                $("#ddlRelacionFamiliar").append(new Option("Seleccionar Opcion", "Seleccionar Opcion", true, true));
+                let id = $(this).val();
+            
+            //let persona = $(this).text();
+
+            //alert("Cambio la seleccion.\nValue = " + idPersona
+            //    +"\nText = "+persona);
+
+            $.ajax({
+                type: "POST",
+                url: urlConsultarRelaciones,
+                //url:"Controllers/RelacionFamiliars/ConsultarRelaciones",
+                data: JSON.stringify({ "id": id }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                    $.each(response, function (index, value) {
+
+
+                        //var option = $()
+
+                        $("#ddlRelacionFamiliar").append(new Option(value.Relacion, value.IDRelacion, true, true));
+
+                        //alert(index + ' Relacion :' + value.Relacion);
+                    });
+
+
+
+                },
+                error: function () {
+                   //alert("Error en la consulta al servidor");
+                }
+
+            });
+
+
+
+        });
+
+
+
+
+    });
+
+
+
+
+
+
+
+    </script>
+
+
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#fecha").datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+        });
+    </script>
+
+}

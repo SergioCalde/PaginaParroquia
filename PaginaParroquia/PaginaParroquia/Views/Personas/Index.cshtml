@@ -24,7 +24,11 @@ new SelectList(Enum.GetValues(typeof(BuscarPor))),"----Buscar Por----", new { @i
 
 <p>
     @Html.ActionLink("Crear Nueva Persona", "Create")
+
+    <a href="@Url.Action("Index", "RelacionFamiliars")" style="position:relative; float: right; margin-left:104px;" class="btn btn-primary btn active" role="button" aria-pressed="true">Relaciones Familiares</a>
 </p>
+
+
 <table class="table">
     <tr>
         <th>

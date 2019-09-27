@@ -1,0 +1,56 @@
+﻿@model PagedList.IPagedList<PaginaParroquia.Models.RelacionFamiliar>
+@using PagedList.Mvc;
+@using PaginaParroquia.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva relación", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Persona
+        </th>
+        <th>
+            Familiar
+        </th>
+        <th>
+            Relacion
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persona.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persona1.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Relacion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IDRelacion }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IDRelacion }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IDRelacion })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

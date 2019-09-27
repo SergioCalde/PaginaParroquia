@@ -507,8 +507,10 @@
     <Compile Include="Controllers\ConfirmasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MatrimoniosController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\PrimeraComunionsController.cs" />
+    <Compile Include="Controllers\RelacionFamiliarsController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -659,6 +661,16 @@
     <Content Include="Views\Confirmas\Details.cshtml" />
     <Content Include="Views\Confirmas\Edit.cshtml" />
     <Content Include="Views\Confirmas\Index.cshtml" />
+    <Content Include="Views\RelacionFamiliars\Create.cshtml" />
+    <Content Include="Views\RelacionFamiliars\Delete.cshtml" />
+    <Content Include="Views\RelacionFamiliars\Details.cshtml" />
+    <Content Include="Views\RelacionFamiliars\Edit.cshtml" />
+    <Content Include="Views\RelacionFamiliars\Index.cshtml" />
+    <Content Include="Views\Matrimonios\Create.cshtml" />
+    <Content Include="Views\Matrimonios\Delete.cshtml" />
+    <Content Include="Views\Matrimonios\Details.cshtml" />
+    <Content Include="Views\Matrimonios\Edit.cshtml" />
+    <Content Include="Views\Matrimonios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
