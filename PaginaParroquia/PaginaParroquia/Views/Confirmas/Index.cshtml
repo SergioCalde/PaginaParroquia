@@ -96,14 +96,14 @@ new SelectList(Enum.GetValues(typeof(BuscarPorC))),"----Buscar Por----", new { @
             <td>
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.IDConfirma })
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IDConfirma })
                 }
                 else
                 { <h9>Editar</h9>}|
-                @Html.ActionLink("Details", "Details", new { id = item.IDConfirma }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.IDConfirma }) |
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.IDConfirma })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IDConfirma })
                 }
                 else
                 { <h9>Eliminar</h9>}
