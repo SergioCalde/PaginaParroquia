@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PaginaParroquia.Models;
+using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace PaginaParroquia.Controllers
 {
@@ -15,10 +17,65 @@ namespace PaginaParroquia.Controllers
         private SacramentosModel db = new SacramentosModel();
 
         // GET: Matrimonios
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, string BuscarPor)
         {
-            var matrimonios = db.Matrimonios.Include(m => m.Bautismo).Include(m => m.Bautismo1).Include(m => m.Confirma).Include(m => m.Confirma1).Include(m => m.Persona).Include(m => m.Persona1);
-            return View(matrimonios.ToList());
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.fechaSortParm = String.IsNullOrEmpty(sortOrder) ? "fecha_desc" : "";
+            ViewBag.libroSortParm = sortOrder == "libro" ? "libro_desc" : "libro";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+
+
+            var matrimonio = from m in db.Matrimonios
+                           select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                if (BuscarPor == "Fecha")
+                {
+                    DateTime fecha = DateTime.Parse(searchString);
+                    matrimonio = matrimonio.Where(m => m.Fecha.Day.Equals(fecha.Day) && m.Fecha.Month.Equals(fecha.Month)
+                   && m.Fecha.Year.Equals(fecha.Year));
+                }
+                else if (BuscarPor == "Libro")
+                {
+                    matrimonio = matrimonio.Where(m => m.Libro.Equals(searchString));
+                }
+            }
+
+
+            switch (sortOrder)
+            {
+                case "fecha_desc":
+                    matrimonio = matrimonio.OrderByDescending(c => c.Fecha);
+                    break;
+                case "libro":
+                    matrimonio = matrimonio.OrderBy(c => c.Fecha);
+                    break;
+                case "libro_desc":
+                    matrimonio = matrimonio.OrderByDescending(c => c.Fecha);
+                    break;
+                default:
+                    matrimonio = matrimonio.OrderBy(c => c.Fecha);
+                    break;
+
+            }
+
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+
+            return View(matrimonio.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Matrimonios/Details/5
