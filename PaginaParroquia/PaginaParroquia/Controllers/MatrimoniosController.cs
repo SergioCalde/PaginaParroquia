@@ -16,6 +16,7 @@ namespace PaginaParroquia.Controllers
     {
         private SacramentosModel db = new SacramentosModel();
 
+        [Authorize]
         // GET: Matrimonios
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, string BuscarPor)
         {
@@ -78,6 +79,7 @@ namespace PaginaParroquia.Controllers
             return View(matrimonio.ToPagedList(pageNumber, pageSize));
         }
 
+        [Authorize]
         // GET: Matrimonios/Details/5
         public ActionResult Details(int? id)
         {
@@ -110,6 +112,7 @@ namespace PaginaParroquia.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "IDMatrimonio,IDEsposo,IDEsposa,Parroquia,Fecha,Presbitero,IDBautismoEsposo,IDBautismoEsposa,IDConfirmaEsposo,IDConfirmaEsposa,Testigo1,EstadoCivil_T1,Profesion_T1,Cedula_T1,Residencia_T1,Testigo2,EstadoCivil_T2,Profesion_T2,Cedula_T2,Residencia_T2,Conyuges,Libro,Folio,Asiento")] Matrimonio matrimonio)
         {
             if (ModelState.IsValid)
@@ -129,6 +132,7 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Matrimonios/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -172,6 +176,7 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Matrimonios/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -1,166 +1,178 @@
-﻿@model IEnumerable<PaginaParroquia.Models.Matrimonio>
+﻿@model PagedList.IPagedList<PaginaParroquia.Models.Matrimonio>
+@using PagedList.Mvc;
+@using PaginaParroquia.Models
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Matrimonio";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Matrimonio</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo Matrimonio", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Bautismo.Parroquia)
+            Esposo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Bautismo1.Parroquia)
+            Esposa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Confirma.Padrino)
+            Parroquia
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Confirma1.Padrino)
+            @Html.ActionLink("Fecha", "Index", new { sortOrder = ViewBag.fechaSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Persona.Cedula)
+            Presbitero
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Persona1.Cedula)
+            Testigo 1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Parroquia)
+            E. Civil T. 1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Fecha)
+            Prof. T. 1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Presbitero)
+            Cédula T. 1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Testigo1)
+            Residencia T. 1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EstadoCivil_T1)
+            Testigo 2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Profesion_T1)
+            E. Civil T. 2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cedula_T1)
+            Prof. T. 2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Residencia_T1)
+            Cédula T. 2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Testigo2)
+            Residencia T. 2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EstadoCivil_T2)
+            Testigos Conyuges
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Profesion_T2)
+            @Html.ActionLink("Libro", "Index", new { sortOrder = ViewBag.libroSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cedula_T2)
+            Folio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Residencia_T2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Conyuges)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Libro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Folio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Asiento)
+            Asiento
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bautismo.Parroquia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bautismo1.Parroquia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Confirma.Padrino)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Confirma1.Padrino)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Persona.Cedula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Persona1.Cedula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Parroquia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Presbitero)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Testigo1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoCivil_T1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Profesion_T1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cedula_T1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Residencia_T1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Testigo2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoCivil_T2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Profesion_T2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cedula_T2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Residencia_T2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conyuges)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Libro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Folio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Asiento)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDMatrimonio }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDMatrimonio }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDMatrimonio })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bautismo.Parroquia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bautismo1.Parroquia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirma.Padrino)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirma1.Padrino)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persona.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persona1.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Parroquia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presbitero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Testigo1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCivil_T1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesion_T1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cedula_T1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residencia_T1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Testigo2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCivil_T2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profesion_T2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cedula_T2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Residencia_T2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conyuges)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Libro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Folio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asiento)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.IDMatrimonio }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IDMatrimonio }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IDMatrimonio })*@
+
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IDMatrimonio })
+                }
+                else
+                { <h9>Editar</h9>}|
+                @Html.ActionLink("Detalles", "Details", new { id = item.IDMatrimonio }) |
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IDMatrimonio })
+                }
+                else
+                { <h9>Eliminar</h9>}
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
