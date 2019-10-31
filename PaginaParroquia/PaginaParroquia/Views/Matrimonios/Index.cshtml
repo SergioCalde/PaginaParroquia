@@ -9,6 +9,18 @@
 
 <h2>Matrimonio</h2>
 
+
+@using (Html.BeginForm())
+{
+    <p>
+        Buscar por: @Html.DropDownList("BuscarPor",
+new SelectList(Enum.GetValues(typeof(BuscarPorM))), "----Buscar Por----", new { @id = "selectTipo", @class = "form-control" })
+        <br> @Html.TextBox("searchString", ViewBag.currentFilter as String, new { @id = "txtBuscar", @class = "form-control" }) <br />
+        <input type="submit" value="Buscar" id="btnBuscar" class="btn-primary" /> @*Genera el boton de buscar*@
+    </p>
+}
+
+
 <p>
     @Html.ActionLink("Crear Nuevo Matrimonio", "Create")
 </p>
@@ -176,3 +188,51 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+        //Encargado de ocultar el Textbox y el boton si el dropdownlist esta en el parametro predefinido
+        $(document).ready(function () {
+            $("#txtBuscar").attr('autocomplete', 'off');
+            if ($("#selectTipo").val() === "") {
+                $("#txtBuscar").hide();
+                $("#btnBuscar").hide();
+            }
+            else if ($("#selectTipo").val() === "Fecha") {
+
+                $("#txtBuscar").show();
+                $("#txtBuscar").prop('disables', true);
+
+                $("#txtBuscar").datepicker({
+                    dateFormat: "mm/dd/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+
+                $("#btnBuscar").show();
+            }
+            else {
+                $("#txtBuscar").show();
+                $("#btnBuscar").show();
+                $("#txtBuscar").prop('disables', false);
+            }
+
+
+            $("#selectTipo").change(function () {
+
+                $("#txtBuscar").val("");
+                $("#btnBuscar").click();
+
+            });
+
+        });
+    </script>
+
+}

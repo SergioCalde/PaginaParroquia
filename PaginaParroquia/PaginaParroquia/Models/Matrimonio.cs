@@ -95,3 +95,10 @@ namespace PaginaParroquia.Models
         public virtual Persona Persona1 { get; set; }
     }
 }
+
+public enum BuscarPorM
+{
+    Persona,
+    Fecha,
+    Libro
+}
