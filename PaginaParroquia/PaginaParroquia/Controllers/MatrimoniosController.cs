@@ -96,6 +96,7 @@ namespace PaginaParroquia.Controllers
         }
 
         // GET: Matrimonios/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.IDBautismoEsposa = new SelectList(db.Bautismoes, "IDBautismo", "Parroquia");
@@ -117,6 +118,26 @@ namespace PaginaParroquia.Controllers
         {
             if (ModelState.IsValid)
             {
+                //SCalderon: Obtiene el IDBautismo Esposo
+                var bautismo = (from b in db.Bautismoes where b.IDPersona.Equals(matrimonio.IDEsposo) select b.IDBautismo).FirstOrDefault();
+                int IDBautismoEsposo = bautismo;
+                matrimonio.IDBautismoEsposo= IDBautismoEsposo;
+
+                //SCalderon: Obtiene el IDBautismo Esposa
+                bautismo = (from b in db.Bautismoes where b.IDPersona.Equals(matrimonio.IDEsposa) select b.IDBautismo).FirstOrDefault();
+                int IDBautismoEsposa = bautismo;
+                matrimonio.IDBautismoEsposa = IDBautismoEsposa;
+
+                //SCalderon: Obtiene el IDBConfirma Esposo
+                var Confirma= (from c in db.Confirmas where c.IDPersona.Equals(matrimonio.IDEsposo) select c.IDConfirma).FirstOrDefault();
+                int IDConfirmaEsposo = Confirma;
+                matrimonio.IDConfirmaEsposo = IDConfirmaEsposo;
+
+                //SCalderon: Obtiene el IDConfirma Esposo
+                Confirma = (from c in db.Confirmas where c.IDPersona.Equals(matrimonio.IDEsposa) select c.IDConfirma).FirstOrDefault();
+                int IDConfirmaEsposa = Confirma;
+                matrimonio.IDConfirmaEsposa = IDConfirmaEsposa;
+
                 db.Matrimonios.Add(matrimonio);
                 db.SaveChanges();
                 return RedirectToAction("Index");
